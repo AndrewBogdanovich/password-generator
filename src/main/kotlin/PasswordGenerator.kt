@@ -4,14 +4,29 @@ class PasswordGenerator {
 
     fun generatePassword(passwordLength: Int): String {
         var password = ""
+
         for (i in 1..passwordLength) {
-            if (i % 2 == 0) {
-                val charRange = ('A'..'Z').random()
-                password += charRange
-            } else {
-                password += (Random.nextInt(0, 9).toString())
-            }
+            password += getRandomSymbolType()
         }
+
         return password
+    }
+
+    private fun getRandomSymbolType(): String {
+        val randomType = SymbolsType.entries.shuffled().first()
+        return when (randomType) {
+            SymbolsType.CHAR -> {
+                val isUpperCased = Random.nextBoolean()
+                val value = ('A'..'Z').random().toString()
+                return if (isUpperCased) {
+                    value.lowercase()
+                } else {
+                    value
+                }
+            }
+
+            SymbolsType.OTHER -> SymbolsAlphabet.alphabet.shuffled().first()
+            SymbolsType.NUMBER -> Random.nextInt(0, 9).toString()
+        }
     }
 }
