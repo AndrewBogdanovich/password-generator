@@ -4,7 +4,6 @@ class PasswordGenerator {
 
     fun generatePassword(passwordLength: Int): String {
         var password = ""
-
         for (i in 1..passwordLength) {
             password += getRandomSymbolType()
         }
